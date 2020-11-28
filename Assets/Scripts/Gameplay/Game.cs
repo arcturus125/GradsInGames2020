@@ -11,19 +11,25 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
-        _output = GetComponentInChildren<TextDisplay>();
-        _currentBeat = null;
-        _wait = new WaitForSeconds(0.5f);
+        _output = GetComponentInChildren<TextDisplay>(); 
+        _currentBeat = null; // is onyl null on the first frame. after that, it always has a value                             
+        _wait = new WaitForSeconds(0.5f);                 
     }
-
+    private void Start()
+    {
+        // capture the cursor when the game starts
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     private void Update()
     {
         if(_output.IsIdle)
         {
+            // runs the first beat  if on the first frame
             if (_currentBeat == null)
             {
                 DisplayBeat(1);
             }
+            //monitors for inputs
             else
             {
                 UpdateInput();
@@ -33,6 +39,8 @@ public class Game : MonoBehaviour
 
     private void UpdateInput()
     {
+        // ESC will quit the game if on the first "beat", otherwise it will return to the first beat
+        // the first beat is acting as a menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(_currentBeat != null)
