@@ -5,18 +5,28 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    // constants
     const float MOUSE_SENSITIVITY = 2.0f;
     const string INTERACTIBLE_TAG = "Interactible";
     const KeyCode USE_KEY = KeyCode.F;
 
-    // camera's state controlls if it is locked from use inputs or not
-    public enum CameraState { TableView, FreeView }
+    // public attributes
+    public enum CameraState { TableView, FreeView } // camera's state controlls if it is locked from use inputs or not
     public static CameraState cameraState = CameraState.FreeView;
-    
-    private GameObject lastKnownInteractible = null; // the interactible the user is currently looking at
+    public static bool _isSitting = false;
+
+    // private attributes
+    private GameObject _lastKnownInteractible = null; // the interactible the user is currently looking at
+    private Animator _anim;
+    [SerializeField]
+    private Camera _cam;
 
 
-
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        _anim = GetComponentInParent<Animator>();
+    }
     private void Update()
     {
         if (cameraState == CameraState.FreeView)
@@ -24,15 +34,54 @@ public class CameraController : MonoBehaviour
             MouseInput();
         }
         RaycastCrosshair();
+
+
+        Animations();
+
     }
+
+    bool readyToPause = true;
+    private void Animations()
+    {
+        if (!readyToPause)
+        {
+            // TODO:: probably shoud find a way to do this without running it every frame, i'll do it later
+            if (cameraState == CameraState.TableView)
+            {
+                _anim.enabled = true;
+                _anim.SetBool("SatAtTable", true);
+            }
+            if (cameraState == CameraState.FreeView)
+            {
+                _anim.SetBool("SatAtTable", false);
+                if (_isSitting)
+                {
+                    readyToPause = true;
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Waiting");
+            if( _anim.GetCurrentAnimatorStateInfo(0).IsName("Standing"))
+            {
+                Debug.Log("paused");
+                readyToPause = false;
+                _isSitting = false;
+                _anim.enabled = false;
+
+            }
+        }
+    }
+
 
     // find out if the user is looking at a gameobject tagged "Interactible" and run functions on that object
     private void RaycastCrosshair()
     {
         // if the player is looking at an interactible object
         RaycastHit hit;
-        Debug.DrawRay(this.transform.position, transform.TransformDirection(Vector3.forward));
-        if(Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), out hit))
+        Debug.DrawRay(_cam.transform.position, _cam.transform.TransformDirection(Vector3.forward)*5,Color.red);
+        if(Physics.Raycast(_cam.transform.position, _cam.transform.TransformDirection(Vector3.forward), out hit))
         {
             GameObject lookingAtGameobject = hit.collider.gameObject;
             //Debug.Log(lookingAtGameobject.name);
@@ -40,26 +89,26 @@ public class CameraController : MonoBehaviour
             if (lookingAtGameobject.tag == INTERACTIBLE_TAG)
             {
                 // if the player has only just started looking at this interactible
-                if (lastKnownInteractible != lookingAtGameobject)
+                if (_lastKnownInteractible != lookingAtGameobject)
                 {
                     // run OnLook() on it
                     lookingAtGameobject.SendMessage("OnLook", SendMessageOptions.DontRequireReceiver);
-                    lastKnownInteractible = lookingAtGameobject;
+                    _lastKnownInteractible = lookingAtGameobject;
                 }
                 if (Input.GetKeyDown(USE_KEY))
                 {
                     // run Use() on it
-                    lastKnownInteractible.SendMessage("Use", SendMessageOptions.DontRequireReceiver);
+                    _lastKnownInteractible.SendMessage("Use", SendMessageOptions.DontRequireReceiver);
                 }
             }
             // if the player has just looked away from an interactible
-            else if (lookingAtGameobject != lastKnownInteractible)
+            else if (lookingAtGameobject != _lastKnownInteractible)
             {
                 //  run OnLookAway() on it if possible
-                if (lastKnownInteractible)
+                if (_lastKnownInteractible)
                 {
-                    lastKnownInteractible.SendMessage("OnLookAway", SendMessageOptions.DontRequireReceiver);
-                    lastKnownInteractible = null;
+                    _lastKnownInteractible.SendMessage("OnLookAway", SendMessageOptions.DontRequireReceiver);
+                    _lastKnownInteractible = null;
                 }
             }
         }
@@ -78,8 +127,9 @@ public class CameraController : MonoBehaviour
         Vector3 verticalRotation = new Vector3(-vertialMouseMovement * MOUSE_SENSITIVITY, 0, 0);
 
         // looking left-to-right rotates player
-        this.transform.parent.transform.Rotate(horizontalRotation);
+        transform.Rotate(horizontalRotation);
         // looking up-to-down rotates the camera
-        this.transform.Rotate(verticalRotation);
+        _cam.transform.Rotate(verticalRotation);
     }
+
 }

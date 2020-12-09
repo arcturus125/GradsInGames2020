@@ -35,7 +35,7 @@ public class BasicMovementScript : MonoBehaviour
     private void Movement()
     {
         Vector3 movement = Vector3.zero;
-        if(Input.GetKey(MOVE_FORWARD))
+        if (Input.GetKey(MOVE_FORWARD))
         {
             movement += Vector3.forward;
         }

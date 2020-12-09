@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class ScreenManager : MonoBehaviour
 {
     [SerializeField] private StoryData _data;
+    public enum Checkpoints
+    {
+        beginning, welcome
+    }
+    public static Checkpoints checkpoint;
 
     private TextDisplay _output;
     private BeatData _currentBeat;
@@ -13,26 +18,26 @@ public class Game : MonoBehaviour
     {
         _output = GetComponentInChildren<TextDisplay>(); 
         _currentBeat = null; // is onyl null on the first frame. after that, it always has a value                             
-        _wait = new WaitForSeconds(0.5f);                 
-    }
-    private void Start()
-    {
-        // capture the cursor when the game starts
-        Cursor.lockState = CursorLockMode.Locked;
+        _wait = new WaitForSeconds(0.5f);
+        checkpoint = Checkpoints.beginning;
     }
     private void Update()
     {
         if(_output.IsIdle)
         {
-            // runs the first beat  if on the first frame
-            if (_currentBeat == null)
+            if (CameraController.cameraState == CameraController.CameraState.TableView)
             {
-                DisplayBeat(1);
-            }
-            //monitors for inputs
-            else
-            {
-                UpdateInput();
+                // runs the first beat  if on the first frame
+                if (checkpoint == Checkpoints.beginning)
+                {
+                    checkpoint = Checkpoints.welcome;
+                    DisplayBeat(1);
+                }
+                //monitors for inputs
+                else
+                {
+                    UpdateInput();
+                }
             }
         }
     }

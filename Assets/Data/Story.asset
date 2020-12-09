@@ -14,7 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _beats:
   - _choices:
-    - _text: The first choice is to go one way...
+    - _text: Hi?
       _beatId: 2
     _text: Hello
     _id: 1
+  - _choices:
+    - _text: The game please.
+      _beatId: 2
+    - _text: Fine (go back)
+      _beatId: 2
+    _text: 'Seems Youre trying to excape.
+
+      I''ll make you a deal. you can go
+      back,
+
+      or you can play a little game with me.
+
+      what do you say?'
+    _id: 2
