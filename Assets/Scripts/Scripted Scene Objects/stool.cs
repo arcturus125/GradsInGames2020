@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class stool : Interactible
 {
     public Transform interactionButtonLocation;
+    public string customInteractionText;
     public override void Start()
     {
         defaultInteractionButtonLocation = interactionButtonLocation;
-        Debug.LogError("Test Start");
+        Init();
     }
     private void Update()
     {
@@ -16,12 +18,20 @@ public class stool : Interactible
         {
             StandUp();
         }
+        base.Update();
     }
     public override void Use()
     {
         SitDown();
         base.Use();
     }
+    public virtual void OnLook()
+    {
+        interactionPanel.SetActive(true);
+        interaction_Text.text = customInteractionText;
+        isObjectBeingLookedAt = true;
+    }
+
     private void SitDown()
     {
         CameraController.cameraState = CameraController.CameraState.TableView;

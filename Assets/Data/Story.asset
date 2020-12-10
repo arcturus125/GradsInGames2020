@@ -20,9 +20,9 @@ MonoBehaviour:
     _id: 1
   - _choices:
     - _text: The game please.
-      _beatId: 2
+      _beatId: 5
     - _text: Fine (go back)
-      _beatId: 2
+      _beatId: 3
     _text: 'Seems Youre trying to excape.
 
       I''ll make you a deal. you can go
@@ -32,3 +32,64 @@ MonoBehaviour:
 
       what do you say?'
     _id: 2
+  - _choices:
+    - _text: wait what?
+      _beatId: 4
+    _text: 'You can''t go back now.
+
+      i''m not going to let you get
+
+      away
+      with trying to escape
+
+
+'
+    _id: 3
+  - _choices:
+    - _text: Fine, i'll play the game
+      _beatId: 5
+    _text: 'If you want to leave,
+
+      you must complete the game
+
+'
+    _id: 4
+  - _choices:
+    - _text: did you just lock me in?
+      _beatId: 6
+    _text: "What fun is a game \nwithout proper stakes"
+    _id: 5
+  - _choices:
+    - _text: Can you tell me where it is?
+      _beatId: 7
+    _text: 'If you want to esacpe,
+
+      you will need to find a key
+
+      there
+      is one somewhere in this room'
+    _id: 6
+  - _choices:
+    - _text: What are the minigames?
+      _beatId: 8
+    _text: "There'd be no fun in that.\nthere is a few minigames \nin which you can
+      play with me\nto unlock coins. coins unlock clues.\n\nif you get enough. coins
+      unlock keys."
+    _id: 7
+  - _choices:
+    - _text: The puzzle of light
+      _beatId: 9
+    _text: "Please choose the minigame\n you would like to play."
+    _id: 8
+  - _choices:
+    - _text: 
+      _beatId: 2
+    _text: Very Well
+    _id: 9
+  - _choices:
+    - _text: 
+      _beatId: 2
+    _text: 'This puzzle is incomplete.
+
+      find the missing pieces'
+    _id: 10

@@ -13,7 +13,7 @@ public class BasicMovementScript : MonoBehaviour
     const KeyCode MOVE_BACK     = KeyCode.S;  
     const KeyCode MOVE_RIGHT    = KeyCode.D;  
 
-    const float MOVEMENT_SPEED = 7.0f;
+    const float MOVEMENT_SPEED = 1200.0f;
 
 
     private void Start()
@@ -51,6 +51,6 @@ public class BasicMovementScript : MonoBehaviour
         {
             movement += Vector3.right;
         }
-        rb.MovePosition(this.transform.position + transform.TransformDirection(movement * MOVEMENT_SPEED * Time.deltaTime));
+        rb.AddForce( transform.TransformDirection(movement * MOVEMENT_SPEED * Time.deltaTime));
     }
 }
