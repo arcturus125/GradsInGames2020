@@ -19,7 +19,7 @@ public class TextDisplay : MonoBehaviour
     {
         _displayText = GetComponent<TMP_Text>();
         _shortWait = new WaitForSeconds(0.05f); // 0.05
-        _longWait = new WaitForSeconds(0.02f); // 0.02
+        _longWait = new WaitForSeconds(0.2f); // 0.2
 
         _displayText.text = string.Empty;
         _state = State.Idle;

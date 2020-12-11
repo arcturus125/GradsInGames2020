@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Interactible : MonoBehaviour
 {
     // public attribues
-    public Transform defaultInteractionButtonLocation;
-    public bool isObjectBeingLookedAt = false;
+    protected Transform defaultInteractionButtonLocation;
+    protected bool isObjectBeingLookedAt = false;
 
     // static attributes
     public static GameObject interactionPanel;
@@ -28,6 +28,7 @@ public class Interactible : MonoBehaviour
         interactionPanel = GameObject.Find("InteractionPanel");
         interactionPanel.SetActive(false);
         _cam = GameObject.Find("Camera").GetComponent<Camera>();
+        
     }
     public virtual void Update()
     {

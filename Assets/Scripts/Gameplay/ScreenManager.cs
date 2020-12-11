@@ -15,7 +15,11 @@ public class ScreenManager : MonoBehaviour
 
         puzzleOfLight_Dealing_cards,
         puzzleOfLight_Missing_Pieces,
-        puzzleOfLisht_WaitingForPieces
+        puzzleOfLight_WaitingForPieces,
+        puzzleOfLight_Animations,
+        puzzleOfLight_SelectTheCards,
+        puzzleOfLight_Idle,
+
     }
     public static Checkpoints checkpoint;
 
@@ -24,7 +28,7 @@ public class ScreenManager : MonoBehaviour
     private WaitForSeconds _wait;
 
 
-    int[] beatsWithoutInputs = new int[] { 9, 10 };
+    //int[] beatsWithoutInputs = new int[] { 9, 10 };
 
 
     private void Awake()
@@ -46,23 +50,37 @@ public class ScreenManager : MonoBehaviour
                     checkpoint = Checkpoints.welcome;
                     DisplayBeat(1);
                 }
+                // the minigame selection screen
                 else if(checkpoint == Checkpoints.minigameTitle)
                 {
                     checkpoint = Checkpoints.minigameSelection;
                     //DisplayBeat(8);
                 }
+                // pizzle of light : find the missing pieces
                 else if(checkpoint == Checkpoints.puzzleOfLight_Missing_Pieces)
                 {
-                    checkpoint = Checkpoints.puzzleOfLisht_WaitingForPieces;
+                    checkpoint = Checkpoints.puzzleOfLight_WaitingForPieces;
+                    CardGame.singleton.cardsPanel.SetActive(true);
                     DisplayBeat(10);
+                }
+                // puzzle of light: missing pieces found
+                else if (checkpoint == Checkpoints.puzzleOfLight_WaitingForPieces && Card.noOfFoundCards == CardGame.singleton.getNumOfHiddenCards())
+                {
+                    checkpoint = Checkpoints.puzzleOfLight_Animations;
+                    CardGame.singleton.RunAnimations2();
+                }
+                else if(checkpoint == Checkpoints.puzzleOfLight_SelectTheCards)
+                {
+                    checkpoint = Checkpoints.puzzleOfLight_Idle;
+                    DisplayBeat(11);
                 }
                 //monitors for inputs
                 else
                 {
-                    if(!isCurrentBeatChoiceless())
-                    {
+                    //if(!isCurrentBeatChoiceless())
+                    //{
                         UpdateInput();
-                    }
+                    //}
                 }
             }
         }
@@ -80,17 +98,17 @@ public class ScreenManager : MonoBehaviour
         }
     }
     // is the current beat one without any choices (something else will trigger the next beat)
-    private bool isCurrentBeatChoiceless()
-    {
-        foreach(int beatID in beatsWithoutInputs)
-        {
-            if (_currentBeat.ID == beatID)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    //private bool isCurrentBeatChoiceless()
+    //{
+    //    foreach(int beatID in beatsWithoutInputs)
+    //    {
+    //        if (_currentBeat.ID == beatID)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //}
 
 
 
@@ -165,8 +183,8 @@ public class ScreenManager : MonoBehaviour
         }
 
 
-        if (!isCurrentBeatChoiceless())
-        {
+        //if (!isCurrentBeatChoiceless())
+        //{
             for (int count = 0; count < data.Decision.Count; ++count)
             {
                 ChoiceData choice = data.Decision[count];
@@ -184,6 +202,6 @@ public class ScreenManager : MonoBehaviour
                 _output.ShowWaitingForInput();
 
             }
-        }
+        //}
     }
 }
