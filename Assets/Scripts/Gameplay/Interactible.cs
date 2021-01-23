@@ -11,23 +11,31 @@ public class Interactible : MonoBehaviour
 
     // static attributes
     public static GameObject interactionPanel;
+    public static GameObject cross;
+    public static bool isCrossVisible = false;
     public static Text interaction_Text;
     public const string DEFAULT_INTERACTION_TEXT = "Interact";
 
     // private attributes
     protected static Camera _cam;
 
+    private void Awake()
+    {
+        cross = GameObject.Find("Cross");
+        interaction_Text = GameObject.Find("Interaction Text").GetComponent<Text>();
+        interactionPanel = GameObject.Find("InteractionPanel");
+    }
+
     public virtual void Start()
     {
         defaultInteractionButtonLocation = this.transform;
+        interactionPanel.SetActive(false);
         Init();
     }
     protected void Init()
     {
-        interaction_Text = GameObject.Find("Interaction Text").GetComponent<Text>();
-        interactionPanel = GameObject.Find("InteractionPanel");
-        interactionPanel.SetActive(false);
         _cam = GameObject.Find("Camera").GetComponent<Camera>();
+
         
     }
     public virtual void Update()
@@ -45,16 +53,16 @@ public class Interactible : MonoBehaviour
         interactionPanel.SetActive(true);
         interaction_Text.text = DEFAULT_INTERACTION_TEXT;
         isObjectBeingLookedAt = true;
-        Debug.Log("OnLook");
+        //Debug.Log("OnLook");
     }
     public virtual void OnLookAway()
     {
         interactionPanel.SetActive(false);
         isObjectBeingLookedAt = false;
-        Debug.Log("OnLookAway");
+        //Debug.Log("OnLookAway");
     }
     public virtual void Use()
     {
-        Debug.Log("Use");
+        //Debug.Log("Use");
     }
 }

@@ -24,6 +24,17 @@ public class TextDisplay : MonoBehaviour
         _displayText.text = string.Empty;
         _state = State.Idle;
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            _shortWait= new WaitForSeconds(0.005f); // 0.05
+        }
+        if (Input.GetKeyUp(KeyCode.Return))
+        {
+            _shortWait = new WaitForSeconds(0.05f); // 0.05
+        }
+    }
 
     private IEnumerator DoShowText(string text)
     {

@@ -75,13 +75,16 @@ MonoBehaviour:
   - _choices:
     - _text: What are the minigames?
       _beatId: 8
-    _text: "There'd be no fun in that.\nthere is a few minigames \nin which you can
-      play with me\nto unlock coins. coins unlock clues.\n\nif you get enough. coins
-      unlock keys.\n"
+    _text: "There'd be no fun in that.\nthere is a few puzzles \nin which you can
+      play with me\nto unlock gems. gems unlock clues.\n\nclues help you earn keys.\n"
     _id: 7
   - _choices:
     - _text: The puzzle of light
       _beatId: 9
+    - _text: The puzzle of colour
+      _beatId: 15
+    - _text: The puzzle of heat
+      _beatId: 20
     _text: "Please choose the minigame\n you would like to play.\n"
     _id: 8
   - _choices: []
@@ -95,3 +98,46 @@ MonoBehaviour:
   - _choices: []
     _text: Select the correct cards in order
     _id: 11
+  - _choices: []
+    _text: Correct
+    _id: 12
+  - _choices: []
+    _text: Incorrect
+    _id: 13
+  - _choices:
+    - _text: Next Puzzle please
+      _beatId: 8
+    _text: Puzzle Of Light Complete
+    _id: 14
+  - _choices: []
+    _text: Please Take The Laptop to the Barrel at the back of the room
+    _id: 15
+  - _choices: []
+    _text: Mix the potions in the correct order
+    _id: 16
+  - _choices:
+    - _text: Next Puzzle Please
+      _beatId: 18
+    _text: Puzzle of colour Complete!
+    _id: 17
+  - _choices: []
+    _text: Please put the laptop back on the desk for your rewards
+    _id: 18
+  - _choices:
+    - _text: oh, okay
+      _beatId: 8
+    _text: you have completed this puzzle already
+    _id: 19
+  - _choices: []
+    _text: There is a Key frozen in a block of ice on the shelf to your Right, find
+      a way to get it out the ice
+    _id: 20
+  - _choices:
+    - _text: Let me pick another puzzle
+      _beatId: 8
+    _text: Well done, you got the key out the ice
+    _id: 21
+  - _choices: []
+    _text: Congratulations!, you have completed all my puzzles... Go and Check out
+      the Chest on the balcony
+    _id: 22

@@ -7,6 +7,8 @@ public class stool : Interactible
 {
     public Transform interactionButtonLocation;
     public string customInteractionText;
+    public static bool disabled = false;
+    
     public override void Start()
     {
         defaultInteractionButtonLocation = interactionButtonLocation;
@@ -14,22 +16,39 @@ public class stool : Interactible
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (CameraController.cameraState == CameraController.CameraState.TableView)
         {
-            StandUp();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StandUp();
+            }
         }
         base.Update();
     }
     public override void Use()
     {
-        SitDown();
-        base.Use();
+        if (!disabled)
+        {
+            SitDown();
+            base.Use();
+        }
     }
     public virtual void OnLook()
     {
-        interactionPanel.SetActive(true);
-        interaction_Text.text = customInteractionText;
-        isObjectBeingLookedAt = true;
+        if (LaptopMovement_Desk.isLaptopMoveable && LaptopMovement_Desk.putLaptopBack)
+        {
+            interactionPanel.SetActive(true);
+            Interactible.cross.SetActive(true);
+            interaction_Text.text = "Put Laptop Back First";
+            isObjectBeingLookedAt = true;
+            disabled = true;
+        }
+        else
+        {
+            interactionPanel.SetActive(true);
+            interaction_Text.text = customInteractionText;
+            isObjectBeingLookedAt = true;
+        }
     }
 
     private void SitDown()
@@ -42,6 +61,12 @@ public class stool : Interactible
     {
         CameraController.cameraState = CameraController.CameraState.FreeView;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    public override void OnLookAway()
+    {
+        base.OnLookAway();
+        disabled = false;
+        cross.SetActive(false);
     }
 
 }

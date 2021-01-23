@@ -15,7 +15,7 @@ public class Laptop : MonoBehaviour
 
     private void Update()
     {
-        if (CameraController.cameraState == CameraController.CameraState.TableView)
+        if (CameraController.cameraState == CameraController.CameraState.TableView || LaptopMovement_Barrel.isLaptopDown)
         {
             _anim.SetBool("isLaptopOpen", true);
         }
