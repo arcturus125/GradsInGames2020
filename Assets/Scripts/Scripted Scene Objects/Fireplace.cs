@@ -57,6 +57,8 @@ public class Fireplace : Interactible
     public static void giveReward3()
     {
         Debug.Log("Reward 3 given");
+        Gem.NoOfGemsFound += 10;
+        Gem.UpdateGemsUI(); 
         Keys.key3Found = true;
         Keys.updateKeyCount();
     }

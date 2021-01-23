@@ -12,6 +12,8 @@ public class Gem : Interactible
     public string customInteractionText;
     public Text UItext;
     public Text Scoretext;
+    public Animator anim;
+    public Animator keys_anim;
 
     private void Awake()
     {
@@ -25,6 +27,8 @@ public class Gem : Interactible
     {
         _singleton.UItext.text = "x " + NoOfGemsFound;
         _singleton.Scoretext.text = ""+NoOfGemsFound;
+        _singleton.anim.SetTrigger("New Trigger");
+        _singleton.keys_anim.SetTrigger("New Trigger");
     }
 
     public override void Use()
