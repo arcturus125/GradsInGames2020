@@ -21,7 +21,7 @@ public class finalDoor : Interactible
     }
     public override void Use()
     {
-        if (Keys.key1Found)
+        if (Keys.finalKeyFound)
         {
             base.Use();
             base.OnLookAway(); // after destorying the object, remove the iteraction button from the screen or it will get stuck 
@@ -35,7 +35,7 @@ public class finalDoor : Interactible
     {
         if (!_isOpen)
         {
-            if (Keys.key1Found)
+            if (Keys.finalKeyFound)
             {
                 interactionPanel.SetActive(true);
                 interaction_Text.text = openDoorText;
