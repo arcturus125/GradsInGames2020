@@ -113,7 +113,8 @@ MonoBehaviour:
     _text: Please Take The Laptop to the Barrel at the back of the room
     _id: 15
   - _choices: []
-    _text: Mix the potions in the correct order
+    _text: Mix the potions on the shelf in the correct order into the empty bottle
+      on the barrel
     _id: 16
   - _choices:
     - _text: Next Puzzle Please

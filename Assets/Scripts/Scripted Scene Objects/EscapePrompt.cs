@@ -28,6 +28,8 @@ public class EscapePrompt : Interactible
             anim.SetBool("escape", true);
             escaped = true;
             interactionPanel.SetActive(false);
+
+            ScreenManager.Singleton.ObjectiveLight.transform.position = new Vector3(-14.7429f,0.585f,-4.9922f);
         }
     }
 

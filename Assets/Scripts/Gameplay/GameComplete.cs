@@ -13,6 +13,7 @@ public class GameComplete : MonoBehaviour
     }
     public static void Wingame()
     {
+        timer.timerActive = false;
         GameWon = true;
         singleton.anim.SetBool("win", true);
         Cursor.lockState = CursorLockMode.None;
